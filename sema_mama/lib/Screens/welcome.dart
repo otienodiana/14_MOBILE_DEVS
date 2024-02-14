@@ -11,11 +11,11 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App Logo or Image
-            Image.asset(
-              'assets/Black background maternity image.jpeg',
-              width: 150,
-              height: 150,
-            ),
+            //Image.asset(
+              //'assets/Black background maternity image.jpeg',
+              //width: 150,
+             // height: 150,
+            //),
             SizedBox(height: 20),
             // App Name
             Text(

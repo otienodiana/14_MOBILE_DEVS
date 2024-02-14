@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sema_mama/Screens/dashboard.dart';
+import 'Semanasi.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               // Navigate to the next screen
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DashboardScreen()),
+                MaterialPageRoute(builder: (context) => SemaNasiPage()),
               );
             },
             child: Text('Next'),
