@@ -7,14 +7,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white, // Background color of the screen
       appBar: AppBar(
-        title: Text('Sema Mama'), // App name in the app bar
+        title: Text('SemaHome'), // App name in the app bar
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
             child: Text(
-              'Welcome to Sema Mama',
+              'About Sema Mama',
               style: TextStyle(
                 fontSize: 24.0, // Adjust the font size as needed
                 fontWeight: FontWeight.bold,

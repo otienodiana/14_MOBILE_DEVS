@@ -11,15 +11,15 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // App Logo or Image
-            //Image.asset(
-              //'assets/Black background maternity image.jpeg',
-              //width: 150,
-             // height: 150,
-            //),
+            Image.asset(
+              'assets/Black background maternity image.jpeg',
+              width: 100,
+              height: 100,
+            ),
             SizedBox(height: 20),
             // App Name
             Text(
-              'Sema Mama',
+              'Wellcome',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -29,7 +29,7 @@ class WelcomePage extends StatelessWidget {
             SizedBox(height: 10),
             // App Slogan or Tagline
             Text(
-              'Your Health Companion',
+              'Your Health Companion for life',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black54,
@@ -45,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => SignupScreen()),
                 );
               },
-              child: Text('Welcome Onboard'),
+              child: Text('Continue'),
             ),
           ],
         ),
