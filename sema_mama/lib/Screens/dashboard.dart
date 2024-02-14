@@ -27,27 +27,27 @@ class DashboardScreen extends StatelessWidget {
                     title: Text('UserProfile'),
                     leading: Icon(Icons.dashboard),
                     onTap: () {
-                      // Navigate to dashboard
+                      
                     },
                   ),
                   ListTile(
                     title: Text('Reports'),
                     leading: Icon(Icons.bar_chart),
                     onTap: () {
-                      // Navigate to reports
+                      
                     },
                   ),
                   ListTile(
                     title: Text('Settings'),
                     leading: Icon(Icons.settings),
                     onTap: () {
-                      // Navigate to settings
+                      
                     },
                   ),
                 ],
               ),
             ),
-            // Content Area
+
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(20.0),
@@ -63,7 +63,7 @@ class DashboardScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    // Add your content widgets here
+                    
                   ],
                 ),
               ),

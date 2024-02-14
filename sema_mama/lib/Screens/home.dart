@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sema_mama/Screens/dashboard.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -8,15 +9,40 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Sema Mama'), // App name in the app bar
       ),
-      body: Center(
-        child: Text(
-          'Welcome to Sema Mama',
-          style: TextStyle(
-            fontSize: 24.0, // Adjust the font size as needed
-            fontWeight: FontWeight.bold,
-            color: Colors.blue, // Adjust the text color as needed
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text(
+              'Welcome to Sema Mama',
+              style: TextStyle(
+                fontSize: 24.0, // Adjust the font size as needed
+                fontWeight: FontWeight.bold,
+                color: Colors.blue, // Adjust the text color as needed
+              ),
+            ),
           ),
-        ),
+          SizedBox(height: 20.0), // Add some spacing
+          Text(
+            'Sema Mama is your go-to app for health and wellness.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.black54,
+            ),
+          ),
+          SizedBox(height: 20.0), // Add some spacing
+          ElevatedButton(
+            onPressed: () {
+              // Navigate to the next screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashboardScreen()),
+              );
+            },
+            child: Text('Next'),
+          ),
+        ],
       ),
     );
   }
