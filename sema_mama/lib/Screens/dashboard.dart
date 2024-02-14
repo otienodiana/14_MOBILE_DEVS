@@ -7,29 +7,66 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Dashboard'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to user profile screen
-              },
-              child: Text('View Profile'),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Sidebar
+            Container(
+              width: 200.0,
+              decoration: BoxDecoration(
+                border: Border(
+                  right: BorderSide(color: Colors.grey),
+                ),
+              ),
+              child: ListView(
+                children: [
+                  ListTile(
+                    title: Text('UserProfile'),
+                    leading: Icon(Icons.dashboard),
+                    onTap: () {
+                      // Navigate to dashboard
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Reports'),
+                    leading: Icon(Icons.bar_chart),
+                    onTap: () {
+                      // Navigate to reports
+                    },
+                  ),
+                  ListTile(
+                    title: Text('Settings'),
+                    leading: Icon(Icons.settings),
+                    onTap: () {
+                      // Navigate to settings
+                    },
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to settings screen
-              },
-              child: Text('Settings'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Log out functionality
-              },
-              child: Text('Log Out'),
+            // Content Area
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Welcome to Your Dashboard',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    // Add your content widgets here
+                  ],
+                ),
+              ),
             ),
           ],
         ),
