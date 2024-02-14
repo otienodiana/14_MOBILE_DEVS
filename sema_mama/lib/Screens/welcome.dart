@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sema_mama/Screens/signup.dart';
+import 'signup.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
