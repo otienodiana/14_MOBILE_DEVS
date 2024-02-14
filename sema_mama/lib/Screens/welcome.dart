@@ -12,7 +12,7 @@ class WelcomePage extends StatelessWidget {
           children: [
             // App Logo or Image
             Image.asset(
-              'assets/sema_mama_logo.png', // Replace 'assets/sema_mama_logo.png' with the path to your app logo
+              'assets/Black background maternity image.jpeg',
               width: 150,
               height: 150,
             ),
