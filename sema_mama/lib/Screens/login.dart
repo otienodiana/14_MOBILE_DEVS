@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sema_mama/Screens/home.dart';
 import './dashboard.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DashboardScreen()),
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
                 );
               },
               child: const Text('Login'),
