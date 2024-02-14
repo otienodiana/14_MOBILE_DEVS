@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Dashboard',
+      title: 'Dashboard Page',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -34,14 +34,14 @@ class DashboardPage extends StatelessWidget {
               style: TextStyle(fontSize: 24.0),
             ),
             SizedBox(height: 20.0),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 // Add your action here
               },
               child: Text('Button 1'),
             ),
             SizedBox(height: 10.0),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 // Add your action here
               },
@@ -54,3 +54,4 @@ class DashboardPage extends StatelessWidget {
     );
   }
 }
+
