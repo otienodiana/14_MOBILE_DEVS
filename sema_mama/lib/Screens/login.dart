@@ -27,8 +27,13 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {},
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DashboardPage()),
+                );
+              },
               child: const Text('Login'),
             ),
           ],
