@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
 
 class SignupScreen extends StatelessWidget {
   @override
@@ -33,9 +34,12 @@ class SignupScreen extends StatelessWidget {
               obscureText: true,
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
+            TextButton(
               onPressed: () {
-                // Add sign-up logic here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
               child: Text('Sign Up'),
             ),
