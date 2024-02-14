@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './Screenss/signup.dart';
+import './Screens/signup.dart';
 void main() {
   runApp(const MyApp());
 }
