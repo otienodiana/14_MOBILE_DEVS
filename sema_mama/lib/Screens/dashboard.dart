@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'user_profile.dart'; // Import the user profile widget
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -8,22 +7,32 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Dashboard'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          UserProfile(), // This is where you display the user profile details
-          SizedBox(height: 20),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-            },
-            child: Text('Logout'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to user profile screen
+              },
+              child: Text('View Profile'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navigate to settings screen
+              },
+              child: Text('Settings'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Log out functionality
+              },
+              child: Text('Log Out'),
+            ),
+          ],
+        ),
       ),
     );
   }
