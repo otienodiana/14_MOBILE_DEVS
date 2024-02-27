@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
 import './Screens/welcome.dart';
-void main() {
-  runApp(const MyApp());
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyBXs0c2eWALZRIftqgqXt4wW_CMPEPxef4",
+        appId: "1:582818276388:android:771c82c467ba7675e9a4b1",
+        messagingSenderId: "582818276388",
+        projectId: "sema-mama-f365d",
+      )
+    );
+
+  } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

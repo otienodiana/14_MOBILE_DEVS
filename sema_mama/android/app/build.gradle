@@ -65,9 +65,5 @@ flutter {
 }
 
 dependencies {}
-<<<<<<< HEAD
 
 apply plugin: 'com.google.gms.google-services'
-=======
-id("com.google.gms.google-services") version "4.4.1" apply false
->>>>>>> cd85685c75fb9f6bf17cb857ca351ac2041c13ba
