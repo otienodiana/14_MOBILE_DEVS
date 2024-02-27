@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import './Screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
+<<<<<<< HEAD
 import 'firebase_options.dart';
 void main() {
   runApp(const MyApp());
+=======
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID",
+    ),
+  );
+  runApp(MyApp());
+>>>>>>> 88e018327001ff54459d5a199c8c22a2cc93b277
 }
 
 class MyApp extends StatelessWidget {
