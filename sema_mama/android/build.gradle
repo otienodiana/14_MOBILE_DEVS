@@ -7,7 +7,11 @@ buildscript {
 
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+<<<<<<< HEAD
         classpath 'com.google.gms.google-services:4.4.1'
+=======
+        implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+>>>>>>> cd85685c75fb9f6bf17cb857ca351ac2041c13ba
     }
 }
 
