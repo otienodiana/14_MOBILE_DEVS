@@ -68,7 +68,7 @@ class SemaNasiPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => DeleteScreen()),
                 );
               },
-              child: const Text('Go to update'),
+              child: const Text('Delete Data'),
             ),              
 
           // You can add more ListTile widgets for additional links
