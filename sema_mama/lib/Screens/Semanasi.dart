@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sema_mama/Screens/dashboard.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:sema_mama/Screens/users.dart';
 
 class SemaNasiPage extends StatelessWidget {
   @override
@@ -39,6 +40,17 @@ class SemaNasiPage extends StatelessWidget {
               },
               child: const Text('Proceed To Dashboard'),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UsersScreen()),
+                );
+              },
+              child: const Text('See Users'),
+            ),
+
+
           // You can add more ListTile widgets for additional links
         ],
       ),

@@ -3,8 +3,7 @@ import 'Semanasi.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       backgroundColor: Colors.white, // Background color of the screen
       appBar: AppBar(
         title: Text('SemaHome'), // App name in the app bar
@@ -46,4 +45,3 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-}
