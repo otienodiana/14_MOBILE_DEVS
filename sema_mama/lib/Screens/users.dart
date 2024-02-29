@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,7 +42,7 @@ class UserService {
 
   Stream<List<User>> getUsersAsStream() {
     return usersCollection.snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+        snapshot.docs.map((doc) => User.fromJson(doc.data()as Map<String, dynamic>)).toList());
   }
 
   Future<void> updateUser(String id, User newUser) {
@@ -88,7 +86,10 @@ class UsersScreen extends StatelessWidget {
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
-                    List<User> users = snapshot.data ?? [];
+                    List<User> users = [];
+                    if (snapshot.hasData) {
+                      users = snapshot.data!;
+                    }
                     return ListView.builder(
                       itemCount: users.length,
                       itemBuilder: (context, index) {
