@@ -73,7 +73,7 @@ class UpdateScreen extends StatelessWidget {
                 final password = passwordController.text;
                 final docUser = FirebaseFirestore.instance
                     .collection('users')
-                    .doc('fiu1o12OPW6idtpaKGBm');
+                    .doc();
 
                 await docUser.update({
                   'username': username,
@@ -103,17 +103,20 @@ class UpdateScreen extends StatelessWidget {
     .map((snapshot) =>
         snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
     
-  Future createUser({required String username, required String email, required String password}) async {
-   ///Reference to document
-   final docUser = FirebaseFirestore.instance.collection('users').doc();
+  Future<void> updateUser({ required String username, required String email, required String password}) async {
+  try {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(password);
 
-   final json = {
-     'username': username,
-     'email' : email,
-     'password' : password,
-   };
+    final json = {
+      'username': username,
+      'email': email,
+      'password': password,
+    };
 
-   ///Create document and write data to Firebase
-   await docUser.set(json);
+    await docUser.update(json);
+    print('User updated successfully');
+  } catch (error) {
+    print('Error updating user: $error');
   }
+}
 }
