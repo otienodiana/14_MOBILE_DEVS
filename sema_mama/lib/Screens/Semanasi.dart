@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sema_mama/Screens/dashboard.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sema_mama/Screens/users.dart';
-import 'package:sema_mama/Screens/update.dart';
-import 'package:sema_mama/Screens/delete.dart';
-
+import 'package:sema_mama/Screens/dashboard.dart';
 
 class SemaNasiPage extends StatelessWidget {
   @override
@@ -28,50 +25,30 @@ class SemaNasiPage extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text('Sema_Articles'),
+            title: Text('Sema Articles'),
             onTap: () {
               launch('https://your_sema_mama_articles_website.com');
             },
           ),
           SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DashboardScreen()),
-                );
-              },
-              child: const Text('Proceed To Dashboard'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UsersScreen()),
-                );
-              },
-              child: const Text('See Users'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => UpdateScreen()),
-                );
-              },
-              child: const Text('Go to update'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DeleteScreen()),
-                );
-              },
-              child: const Text('Delete Data'),
-            ),              
-
-          // You can add more ListTile widgets for additional links
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashboardScreen()),
+              );
+            },
+            child: const Text('Dashboard'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UsersScreen()),
+              );
+            },
+            child: const Text('Users'),
+          ),
         ],
       ),
     );
