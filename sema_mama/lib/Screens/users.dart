@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'login.dart';
 
 class User {
   String id;
@@ -32,6 +30,7 @@ class User {
 class UserService {
   final CollectionReference usersCollection =
       FirebaseFirestore.instance.collection('users');
+      
 
   Future<void> addUser(User user) {
     return usersCollection
@@ -41,6 +40,12 @@ class UserService {
   }
 
   Stream<List<User>> getUsersAsStream() {
+    var users = usersCollection.id;
+    debugPrint('The User is $users');
+
+    
+
+    
     return usersCollection.snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => User.fromJson(doc.data()as Map<String, dynamic>)).toList());
   }
@@ -68,50 +73,75 @@ class UsersScreen extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  UsersScreen({super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('User Management'),
+          title: const Text('User Management'),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('All Users:'),
+            const Text('All Users:'),
             Expanded(
-              child: StreamBuilder<List<User>>(
-                stream: _userService.getUsersAsStream(),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance.collection('users').snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
-                    List<User> users = [];
+                    List<Column> usersWidgets = [];
                     if (snapshot.hasData) {
-                      users = snapshot.data!;
-                    }
-                    return ListView.builder(
-                      itemCount: users.length,
-                      itemBuilder: (context, index) {
-                        User user = users[index];
-                        return ListTile(
-                          title: Text(user.username),
-                          subtitle: Text(user.email),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: Icon(Icons.edit),
-                                onPressed: () => _editUser(context, user),
-                              ),
-                              IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () => _deleteUser(context, user),
-                              ),
+                      
+                      final users = snapshot.data?.docs.reversed.toList();
+                      
+                      for (var user in users!) {
+                        debugPrint('The Data Are $user');
+                        // var email = user['email'];
+                        // debugPrint('The Email is $email');
+                        final usersWidget =  Column(
+                          mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(children: [
+                              const Text('Email: '),
+                              Text(user['email']),
                             ],
-                          ),
+                            ),
+
+                            Row(children: [
+                              const Text('Username: '),
+                              Text(user['username']),
+                            ],
+                            ),
+
+                            Row(children: [
+                              const Text('Password: '),
+                              Text(user['password']),
+                            ],
+                            ),
+              
+                            IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () => _editUser(context, user),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () => _deleteUser(context, user),
+                                ),
+                            ],
                         );
-                      },
+                        usersWidgets.add(usersWidget);
+                      }
+                    }
+                    return Expanded(
+                      child: ListView(
+                        
+                        children: usersWidgets,
+                        
+                      ),
                     );
                   }
                 },
@@ -121,27 +151,30 @@ class UsersScreen extends StatelessWidget {
         ),
       );
 
-  void _editUser(BuildContext context, User user) {
+  void _editUser(BuildContext context, DocumentSnapshot userSnapshot) {
+  Map<String, dynamic>? userData = userSnapshot.data() as Map<String, dynamic>?;
+
+  if (userData != null) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Edit User'),
+          title: const Text('Edit User'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: usernameController..text = user.username,
-                decoration: InputDecoration(labelText: 'Username'),
+                controller: usernameController..text = userData['username'] ?? '',
+                decoration: const InputDecoration(labelText: 'Username'),
               ),
               TextField(
-                controller: emailController..text = user.email,
-                decoration: InputDecoration(labelText: 'Email'),
+                controller: emailController..text = userData['email'] ?? '',
+                decoration: const InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
               ),
               TextField(
-                controller: passwordController..text = user.password,
-                decoration: InputDecoration(labelText: 'Password'),
+                controller: passwordController..text = userData['password'] ?? '',
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
               ),
             ],
@@ -149,43 +182,45 @@ class UsersScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
-                _userService.updateUser(user.id, User(
+                _userService.updateUser(userSnapshot.id, User(
                   username: usernameController.text,
                   email: emailController.text,
                   password: passwordController.text,
                 ));
                 Navigator.pop(context);
               },
-              child: Text('Save'),
+              child: const Text('Save'),
             ),
           ],
         );
       },
     );
   }
+}
 
-  void _deleteUser(BuildContext context, User user) {
+
+  void _deleteUser(BuildContext context, DocumentSnapshot user) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Delete'),
-          content: Text('Are you sure you want to delete this user?'),
+          title: const Text('Confirm Delete'),
+          content: const Text('Are you sure you want to delete this user?'),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 _userService.deleteUser(user.id);
                 Navigator.pop(context);
               },
-              child: Text('Delete'),
+              child: const Text('Delete'),
             ),
           ],
         );

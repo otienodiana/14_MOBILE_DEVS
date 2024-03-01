@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sema_mama/Screens/login.dart';
 import 'signup.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -16,9 +17,9 @@ class WelcomePage extends StatelessWidget {
               width: 100,
               height: 100,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // App Name
-            Text(
+            const Text(
               'Wellcome',
               style: TextStyle(
                 fontSize: 24,
@@ -26,26 +27,26 @@ class WelcomePage extends StatelessWidget {
                 color: Colors.blue,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // App Slogan or Tagline
-            Text(
+            const Text(
               'Your Health Companion for life',
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black54,
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Next Button
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             TextButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignupScreen()),
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
                 );
               },
-              child: Text('Continue'),
+              child: const Text('Continue'),
             ),
           ],
         ),

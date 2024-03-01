@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'Semanasi.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
       backgroundColor: Colors.white, // Background color of the screen
       appBar: AppBar(
-        title: Text('SemaHome'), // App name in the app bar
+        title: const Text('SemaHome'), // App name in the app bar
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
+          const Center(
             child: Text(
               'About Sema Mama',
               style: TextStyle(
@@ -21,8 +23,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 20.0), // Add some spacing
-          Text(
+          const SizedBox(height: 20.0), // Add some spacing
+          const Text(
             'Sema Mama is your go-to app for health and wellness.',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -30,7 +32,7 @@ class HomeScreen extends StatelessWidget {
               color: Colors.black54,
             ),
           ),
-          SizedBox(height: 20.0), // Add some spacing
+          const SizedBox(height: 20.0), // Add some spacing
           ElevatedButton(
             onPressed: () {
               // Navigate to the next screen
@@ -39,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => SemaNasiPage()),
               );
             },
-            child: Text('Next'),
+            child: const Text('Next'),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sema_mama/Screens/users.dart';
 import './Screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -7,7 +8,7 @@ void main() async {
 
   try {
     await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
         apiKey: "AIzaSyBXs0c2eWALZRIftqgqXt4wW_CMPEPxef4",
         appId: "1:582818276388:android:771c82c467ba7675e9a4b1",
         messagingSenderId: "582818276388",
@@ -19,7 +20,36 @@ void main() async {
     print('Error initializing Firebase: $e');
   }
 
-  runApp(MyApp());
+  final userService = UserService();
+
+  try {
+    // Get the users from the collection
+  final usersSnapshot = await userService.usersCollection.get();
+
+  // Extract user data from the snapshot
+  final users = usersSnapshot.docs.map((doc) {
+  final data = doc.data();
+  if (data != null && data is Map<String, dynamic>) {
+    return User.fromJson(data);
+  } else {
+    throw Exception('Invalid user data');
+  }
+}).toList();
+// Print user data
+  for (var user in users) {
+    print('User ID: ${user.id}');
+    print('Username: ${user.username}');
+    print('Email: ${user.email}');
+    print('Password: ${user.password}');
+    print('------------------');
+  }
+  } catch (e) {
+    debugPrint('The Exception $e was Thrown');
+  }
+
+  
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +60,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sema Mama',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
