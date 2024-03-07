@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sema_mama/Screens/users.dart';
 import './Screens/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,7 @@ void main() async {
   final users = usersSnapshot.docs.map((doc) {
   final data = doc.data();
   if (data != null && data is Map<String, dynamic>) {
-    return User.fromJson(data);
+    return Users.fromJson(data);
   } else {
     throw Exception('Invalid user data');
   }

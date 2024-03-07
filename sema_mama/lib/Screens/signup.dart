@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
+import 'package:flutter/widgets.dart';
 import 'login.dart';
 
 class SignupScreen extends StatelessWidget {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final auth = FirebaseAuth.instance;
+
 
   SignupScreen({super.key});
 
@@ -46,16 +49,13 @@ class SignupScreen extends StatelessWidget {
             const SizedBox(height: 20.0),
             TextButton(
               onPressed: () {
-                final username = usernameController.text;
-                final email = emailController.text;
-                final password = passwordController.text;
+                final username = usernameController.text.trim();
+                final email = emailController.text.trim();
+                final password = passwordController.text.trim();
 
-                createUser(username: username, email: email, password: password);
+                createUser(context: context,username:  username, email: email, password: password);
                 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
-                );
+                
               },
               child: const Text('Sign Up'),
             ),
@@ -64,7 +64,7 @@ class SignupScreen extends StatelessWidget {
       ),
     );
 
-  Future createUser({required String username, required String email, required String password}) async {
+  Future createUser({required BuildContext context, required String username, required String email, required String password}) async {
    ///Reference to document
    final docUser = FirebaseFirestore.instance.collection('users').doc();
 
@@ -73,7 +73,9 @@ class SignupScreen extends StatelessWidget {
      'email' : email,
      'password' : password,
    };
-
+    auth.createUserWithEmailAndPassword(email: email, password: password).then((_){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
+                });
    ///Create document and write data to Firebase
    await docUser.set(json);
   }

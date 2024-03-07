@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class Users {
   String id;
   final String username;
   final String email;
   final String password;
 
-  User({
+  Users({
     this.id = '',
     required this.username,
     required this.email,
@@ -20,7 +20,7 @@ class User {
     'password': password,
   };
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static Users fromJson(Map<String, dynamic> json) => Users(
     username: json['username'],
     email: json['email'],
     password: json['password'],
@@ -32,14 +32,14 @@ class UserService {
       FirebaseFirestore.instance.collection('users');
       
 
-  Future<void> addUser(User user) {
+  Future<void> addUser(Users user) {
     return usersCollection
         .add(user.toJson())
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  Stream<List<User>> getUsersAsStream() {
+  Stream<List<Users>> getUsersAsStream() {
     var users = usersCollection.id;
     debugPrint('The User is $users');
 
@@ -47,10 +47,10 @@ class UserService {
 
     
     return usersCollection.snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => User.fromJson(doc.data()as Map<String, dynamic>)).toList());
+        snapshot.docs.map((doc) => Users.fromJson(doc.data()as Map<String, dynamic>)).toList());
   }
 
-  Future<void> updateUser(String id, User newUser) {
+  Future<void> updateUser(String id, Users newUser) {
     return usersCollection
         .doc(id)
         .update(newUser.toJson())
@@ -186,7 +186,7 @@ class UsersScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                _userService.updateUser(userSnapshot.id, User(
+                _userService.updateUser(userSnapshot.id, Users(
                   username: usernameController.text,
                   email: emailController.text,
                   password: passwordController.text,

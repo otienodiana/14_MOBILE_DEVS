@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sema_mama/Screens/login.dart';
-import 'signup.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -43,7 +42,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  MaterialPageRoute(builder: (context) =>  LoginScreen()),
                 );
               },
               child: const Text('Continue'),

@@ -6,7 +6,10 @@ import './home.dart'; // Import the home page
 // Import the signup page
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+   LoginScreen({super.key});
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,8 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            TextFormField(
+              controller: emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
               ),
@@ -28,7 +32,8 @@ class LoginScreen extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            TextField(
+            TextFormField(
+              controller: passwordController,
               obscureText: true,
               decoration: const InputDecoration(
                 labelText: 'Password',
@@ -42,7 +47,7 @@ class LoginScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 // Perform login action
-                _login(context);
+                _login(context, emailController.text.toString().trim(), passwordController.text.trim());
               },
               child: const Text('Login'),
             ),
@@ -68,9 +73,12 @@ class LoginScreen extends StatelessWidget {
   }
 
   // Function to handle login
-  void _login(BuildContext context) async {
+  void _login(BuildContext context, String email, String password) async {
     try {
-      // Sign in with email and password
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
 
       // User login successful, navigate to home screen
       Navigator.pushReplacement(
