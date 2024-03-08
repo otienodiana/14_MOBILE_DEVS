@@ -1,15 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sema_mama/Screens/signup.dart';
-import './home.dart'; // Import the home page
-// Import the signup page
+import './home.dart';
+import './google_sign_in.dart'; // Import the GoogleSignInScreen
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,6 @@ class LoginScreen extends StatelessWidget {
               decoration: const InputDecoration(
                 labelText: 'Email',
               ),
-              onChanged: (value) {
-                // Store the email input
-                // You can perform validation here if needed
-              },
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -38,52 +34,50 @@ class LoginScreen extends StatelessWidget {
               decoration: const InputDecoration(
                 labelText: 'Password',
               ),
-              onChanged: (value) {
-                // Store the password input
-                // You can perform validation here if needed
-              },
             ),
             const SizedBox(height: 16),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
-                // Perform login action
-                _login(context, emailController.text.toString().trim(), passwordController.text.trim());
+                _loginWithEmailPassword(context);
               },
               child: const Text('Login'),
             ),
-             Row(
-              children: [
-                const Text('Dont have an account?',
-            ),
-            TextButton(
-              
+            const SizedBox(height: 16),
+            ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  SignupScreen()),
-                );
+                _signInWithGoogle(context);
               },
-              child: const Text('Signup'),
+              child: const Text('Sign in with Google'),
             ),
-            ],)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Don't have an account?"),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignupScreen()),
+                    );
+                  },
+                  child: const Text('Sign up'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  // Function to handle login
-  void _login(BuildContext context, String email, String password) async {
+  void _loginWithEmailPassword(BuildContext context) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
 
       // User login successful, navigate to home screen
       Navigator.pushReplacement(
+        // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => HomeScreen()),
       );
     } on FirebaseAuthException catch (e) {
       // Handle FirebaseAuthException
@@ -91,8 +85,8 @@ class LoginScreen extends StatelessWidget {
         // User does not exist, navigate to signup screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => SignupScreen()));
-        
+          MaterialPageRoute(builder: (context) => SignupScreen()),
+        );
       } else if (e.code == 'wrong-password') {
         // Incorrect password
         if (kDebugMode) {
@@ -114,5 +108,11 @@ class LoginScreen extends StatelessWidget {
       // Show error message to the user if needed
     }
   }
-}
 
+  void _signInWithGoogle(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const GoogleSignInScreen()),
+    );
+  }
+}

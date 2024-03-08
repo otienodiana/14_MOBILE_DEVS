@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:sema_mama/Screens/home.dart';
 
 class VerifyScreen extends StatefulWidget {
+  const VerifyScreen({super.key});
+
   @override
   _VerifyScreenState createState() => _VerifyScreenState();
 }
