@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sema_mama/Screens/signup.dart';
 import './home.dart';
-import './google_sign_in.dart'; // Import the GoogleSignInScreen
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -109,10 +109,53 @@ class LoginScreen extends StatelessWidget {
     }
   }
 
-  void _signInWithGoogle(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const GoogleSignInScreen()),
-    );
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        setState(() {
+          // ignore: no_leading_underscores_for_local_identifiers
+          var _userCredential;
+          _userCredential.value = userCredential;
+        });
+      }
+    } catch (e) {
+      // Error handling
+      if (kDebugMode) {
+        print('Exception: $e');
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Failed to sign in with Google')),
+      );
+    }
   }
+
+
+
+Future<void> setState(Null Function() param0) async {
+  try {
+    // Perform asynchronous operation here
+    // For example, fetching data from a network call
+    // or performing some computation
+
+    // Once the asynchronous operation is complete,
+    // update the state and rebuild the UI
+
+    // Example:
+    // await fetchData();
+    // setState(() {
+    //   // Update state variables here
+    // });
+  } catch (e) {
+    // Handle any errors that occur during the asynchronous operation
+    print('Error occurred: $e');
+  }
+}
 }

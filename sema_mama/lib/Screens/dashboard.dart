@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: const Text('Dashboard'),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -16,7 +18,7 @@ class DashboardScreen extends StatelessWidget {
             // Sidebar
             Container(
               width: 200.0,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   right: BorderSide(color: Colors.grey),
                 ),
@@ -24,22 +26,22 @@ class DashboardScreen extends StatelessWidget {
               child: ListView(
                 children: [
                   ListTile(
-                    title: Text('UserProfile'),
-                    leading: Icon(Icons.dashboard),
+                    title: const Text('UserProfile'),
+                    leading: const Icon(Icons.dashboard),
                     onTap: () {
                       
                     },
                   ),
                   ListTile(
-                    title: Text('Reports'),
-                    leading: Icon(Icons.bar_chart),
+                    title: const Text('Reports'),
+                    leading: const Icon(Icons.bar_chart),
                     onTap: () {
                       
                     },
                   ),
                   ListTile(
-                    title: Text('Settings'),
-                    leading: Icon(Icons.settings),
+                    title: const Text('Settings'),
+                    leading: const Icon(Icons.settings),
                     onTap: () {
                       
                     },
@@ -50,8 +52,8 @@ class DashboardScreen extends StatelessWidget {
 
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
+                padding: const EdgeInsets.all(20.0),
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

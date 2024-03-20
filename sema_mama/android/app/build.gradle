@@ -24,8 +24,11 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.sema_mama"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
+
+
+   
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,6 +52,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -64,6 +68,9 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
+}
 
-apply plugin: 'com.google.gms.google-services'
+
+// apply plugin: 'com.google.gms.google-services'

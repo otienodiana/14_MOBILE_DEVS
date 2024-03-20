@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               // Navigate to the next screen
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SemaNasiPage()),
+                MaterialPageRoute(builder: (context) => const SemaNasiPage()),
               );
             },
             child: const Text('Next'),

@@ -9,7 +9,7 @@ class SignupScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final auth = FirebaseAuth.instance;
 
-
+// keytool -list -v -keystore %USERPROFILE%\.android\debug.keystore -alias androiddebugkey -storepass android -keypass android
   SignupScreen({super.key});
 
   @override

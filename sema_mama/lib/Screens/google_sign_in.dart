@@ -1,8 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
   const GoogleSignInScreen({super.key});
@@ -18,17 +17,6 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   void initState() {
     super.initState();
     _userCredential = ValueNotifier<UserCredential?>(null);
-
-    // Your web app's Firebase configuration
-    // Initialize Firebase
-    Firebase.initializeApp(
-      options: const FirebaseOptions(
-        // Replace these values with your Firebase project's configuration
-        apiKey: 'AIzaSyBXs0c2eWALZRIftqgqXt4wW_CMPEPxef4',
-        authDomain: 'sema-mama-f365d.web.app',
-        projectId: 'sema-mama-f365d', appId: '1:582818276388:android:771c82c467ba7675e9a4b1', messagingSenderId: '582818276388',
-      ),
-    );
   }
 
   @override
@@ -69,16 +57,19 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final FirebaseAuth auth = FirebaseAuth.instance;
-      final GoogleAuthProvider googleProvider = GoogleAuthProvider();
-
-      final UserCredential userCredential =
-          await auth.signInWithPopup(googleProvider);
-
-      Provider.of<ValueNotifier<UserCredential?>>(
-        context,
-        listen: false,
-      ).value = userCredential;
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        setState(() {
+          _userCredential.value = userCredential;
+        });
+      }
     } catch (e) {
       // Error handling
       if (kDebugMode) {
@@ -93,10 +84,9 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   Future<void> _signOutFromGoogle(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      Provider.of<ValueNotifier<UserCredential?>>(
-        context,
-        listen: false,
-      ).value = null;
+      setState(() {
+        _userCredential.value = null;
+      });
     } catch (e) {
       if (kDebugMode) {
         print('Exception: $e');
