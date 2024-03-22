@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInScreen extends StatefulWidget {
-  const GoogleSignInScreen({super.key});
+  const GoogleSignInScreen({Key? key}) : super(key: key);
 
   @override
   State<GoogleSignInScreen> createState() => _GoogleSignInScreenState();
@@ -29,26 +29,26 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
           builder: (context, userCredential, child) {
             return userCredential == null
                 ? ElevatedButton(
-                    onPressed: () async {
-                      await _signInWithGoogle(context);
-                    },
-                    child: const Text('Sign In with Google'),
-                  )
+              onPressed: () async {
+                await _signInWithGoogle(context);
+              },
+              child: const Text('Sign In with Google'),
+            )
                 : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(userCredential.user!.displayName ?? ''),
-                      const SizedBox(height: 10),
-                      Text(userCredential.user!.email ?? ''),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await _signOutFromGoogle(context);
-                        },
-                        child: const Text('Logout'),
-                      ),
-                    ],
-                  );
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(userCredential.user!.displayName ?? ''),
+                const SizedBox(height: 10),
+                Text(userCredential.user!.email ?? ''),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    await _signOutFromGoogle(context);
+                  },
+                  child: const Text('Logout'),
+                ),
+              ],
+            );
           },
         ),
       ),
