@@ -1,6 +1,9 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sema_mama/Screens/dashboard.dart';
+
+
 
 class SemaNasiPage extends StatelessWidget {
   const SemaNasiPage({super.key});
@@ -45,7 +48,7 @@ class SemaNasiPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => UsersScreen()),
+                MaterialPageRoute(builder:(context)
               );
             },
             child: const Text('Users'),
