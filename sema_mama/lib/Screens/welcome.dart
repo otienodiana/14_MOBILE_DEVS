@@ -6,7 +6,8 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: Column(
@@ -51,6 +52,7 @@ class WelcomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
       ),
     );
   }

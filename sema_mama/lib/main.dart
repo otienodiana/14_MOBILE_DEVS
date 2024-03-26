@@ -1,99 +1,77 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+// main.dart
+
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sema_mama/Screens/login.dart';
 
-class GoogleSignInScreen extends StatefulWidget {
-  const GoogleSignInScreen({Key? key}) : super(key: key);
-
-  @override
-  State<GoogleSignInScreen> createState() => _GoogleSignInScreenState();
+void main() {
+  runApp(const MyApp());
 }
 
-class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
-  late ValueNotifier<UserCredential?> _userCredential;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  void initState() {
-    super.initState();
-    _userCredential = ValueNotifier<UserCredential?>(null);
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: WelcomePage(),
+      // Define your routes here if you're using named routes
+      // routes: {
+      //   '/login': (context) => LoginScreen(),
+      // },
+    );
   }
+}
+
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Google SignIn Screen')),
+      backgroundColor: Colors.white,
       body: Center(
-        child: ValueListenableBuilder<UserCredential?>(
-          valueListenable: _userCredential,
-          builder: (context, userCredential, child) {
-            return userCredential == null
-                ? ElevatedButton(
-              onPressed: () async {
-                await _signInWithGoogle(context);
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // App Logo or Image
+            Image.asset(
+              'assets/Black background maternity image.jpeg',
+              width: 100,
+              height: 100,
+            ),
+            const SizedBox(height: 20),
+            // App Name
+            const Text(
+              'Welcome',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(height: 10),
+            // App Slogan or Tagline
+            const Text(
+              'Your Health Companion for Life',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Next Button
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
               },
-              child: const Text('Sign In with Google'),
-            )
-                : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(userCredential.user!.displayName ?? ''),
-                const SizedBox(height: 10),
-                Text(userCredential.user!.email ?? ''),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    await _signOutFromGoogle(context);
-                  },
-                  child: const Text('Logout'),
-                ),
-              ],
-            );
-          },
+              child: const Text('Continue'),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  Future<void> _signInWithGoogle(BuildContext context) async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        setState(() {
-          _userCredential.value = userCredential;
-        });
-      }
-    } catch (e) {
-      // Error handling
-      if (kDebugMode) {
-        print('Exception: $e');
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign in with Google')),
-      );
-    }
-  }
-
-  Future<void> _signOutFromGoogle(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      setState(() {
-        _userCredential.value = null;
-      });
-    } catch (e) {
-      if (kDebugMode) {
-        print('Exception: $e');
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign out')),
-      );
-    }
   }
 }

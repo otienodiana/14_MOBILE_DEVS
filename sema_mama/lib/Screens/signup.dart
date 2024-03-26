@@ -13,7 +13,8 @@ class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Up'),
       ),
@@ -62,6 +63,7 @@ class SignupScreen extends StatelessWidget {
         ),
       ),
     );
+  }
 
   Future createUser({required BuildContext context, required String username, required String email, required String password}) async {
    ///Reference to document
