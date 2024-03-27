@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>582818276388-iu7cqtba2m68sv0lcq82r1ubeu39qr69.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.582818276388-iu7cqtba2m68sv0lcq82r1ubeu39qr69</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>582818276388-ki6nmat714l6gfmpaqti8lb1pr8gu8d2.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB76c_SmzEaMoKX9X-QaTt7egs3EGc-Cxw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>582818276388</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.semmaMaam.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>sema-mama-f365d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>sema-mama-f365d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:582818276388:ios:9cd80ec1cbba1697e9a4b1</string>
+	<key>DATABASE_URL</key>
+	<string>https://sema-mama-f365d-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
