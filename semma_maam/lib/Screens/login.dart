@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:semma_maam/Screens/signup.dart';
 import './home.dart';
 
+
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -77,7 +78,7 @@ class LoginScreen extends StatelessWidget {
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } on FirebaseAuthException catch (e) {
       // Handle FirebaseAuthException
@@ -110,32 +111,37 @@ class LoginScreen extends StatelessWidget {
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        setState(() {
-          // ignore: no_leading_underscores_for_local_identifiers
-          var _userCredential;
-          _userCredential.value = userCredential;
-        });
-      }
-    } catch (e) {
-      // Error handling
-      if (kDebugMode) {
-        print('Exception: $e');
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign in with Google')),
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId: '582818276388-5nrk1q9k0qr1cbgain8m6hlcrpi3tns1.apps.googleusercontent.com',
+    );
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
       );
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      setState(() {
+        // ignore: prefer_typing_uninitialized_variables
+        var userCredential0;
+        userCredential0.value = userCredential;
+      });
     }
+  } catch (e) {
+    // Error handling if
+    if (kDebugMode) {
+      print('Exception: $e');
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Failed to sign in with Google')),
+    );
   }
+}
+
 
 
 

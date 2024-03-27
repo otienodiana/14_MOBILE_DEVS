@@ -74,8 +74,6 @@ class SignupScreen extends StatelessWidget {
       };
 
       // Create user authentication
-      // ignore: unused_local_variable
-      final UserCredential userCredential = await auth.createUserWithEmailAndPassword(email: email, password: password);
 
       // Handle successful creation
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));

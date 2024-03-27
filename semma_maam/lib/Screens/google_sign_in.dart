@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:semma_maam/Screens/home.dart';
+
 
 class GoogleSignInScreen extends StatefulWidget {
   const GoogleSignInScreen({super.key});
@@ -41,12 +43,7 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
                       const SizedBox(height: 10),
                       Text(userCredential.user!.email ?? ''),
                       const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () async {
-                          await _signOutFromGoogle(context);
-                        },
-                        child: const Text('Logout'),
-                      ),
+                      
                     ],
                   );
           },
@@ -56,44 +53,32 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-      if (googleSignInAccount != null) {
-        final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
-        final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
-        final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-        setState(() {
-          _userCredential.value = userCredential;
-        });
-      }
-    } catch (e) {
-      // Error handling
-      if (kDebugMode) {
-        print('Exception: $e');
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign in with Google')),
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
+      // ignore: unused_local_variable
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
       );
-    }
-  }
 
-  Future<void> _signOutFromGoogle(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      setState(() {
-        _userCredential.value = null;
-      });
-    } catch (e) {
-      if (kDebugMode) {
-        print('Exception: $e');
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to sign out')),
+      // After successful sign-in, navigate to SemaNasiPage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     }
+  } catch (e) {
+    // Error handling
+    if (kDebugMode) {
+      print('Exception: $e');
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Failed to sign in with Google')),
+    );
   }
+}
 }
