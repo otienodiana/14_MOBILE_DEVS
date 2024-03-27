@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
 import 'login.dart';
+// ignore: unused_import
+import 'package:sema_mama/Screens/firebase_options.dart';
 
 class SignupScreen extends StatelessWidget {
   final usernameController = TextEditingController();

@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "sema_mama",
+            "cwd": "sema_mama",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sema_mama (profile mode)",
+            "cwd": "sema_mama",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sema_mama (release mode)",
+            "cwd": "sema_mama",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
