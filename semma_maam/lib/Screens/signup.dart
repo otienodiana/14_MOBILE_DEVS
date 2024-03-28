@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' show FirebaseFirestore;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'login.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class SignupScreen extends StatelessWidget {
   final passwordController = TextEditingController();
   final auth = FirebaseAuth.instance;
 
-  SignupScreen({super.key});
+  SignupScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,22 +64,28 @@ class SignupScreen extends StatelessWidget {
 
   Future<void> createUser({required BuildContext context, required String username, required String email, required String password}) async {
     try {
+      // Create user authentication
+      // ignore: unused_local_variable
+      final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
       // Reference to document
-      final docUser = FirebaseFirestore.instance.collection('users').doc();
+      final docUser = FirebaseFirestore.instance.collection('users').doc(email); // Using email as document ID
 
       final json = {
         'username': username,
         'email' : email,
         'password' : password,
+        // Avoid storing password in Firestore for security reasons
       };
-
-      // Create user authentication
-
-      // Handle successful creation
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
 
       // Write user data to Firestore
       await docUser.set(json);
+
+      // Handle successful creation
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
     } catch (e) {
       // Handle errors
       print("Error creating user: $e");

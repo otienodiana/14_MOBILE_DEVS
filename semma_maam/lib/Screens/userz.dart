@@ -56,11 +56,11 @@ class UsersScreen extends StatelessWidget {
                             ],
                             ),
 
-                            Row(children: [
-                              const Text('Password: '),
-                              Text(user['password']),
-                            ],
-                            ),
+                            // Row(children: [
+                            //   const Text('Password: '),
+                            //   Text(user['password']),
+                            // ],
+                            // ),
               
                             IconButton(
                                   icon: const Icon(Icons.edit),
