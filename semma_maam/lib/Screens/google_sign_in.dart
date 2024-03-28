@@ -64,10 +64,13 @@ class _GoogleSignInScreenState extends State<GoogleSignInScreen> {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
+      // ignore: unused_local_variable
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
-      // After successful sign-in, navigate to SemaNasiPage
-      Navigator.pushReplacement(
-        context,
+      // After successful sign-in, navigate to homescreen
+      Navigator.of(context).pushReplacement(
+        // ignore: use_build_context_synchronously
+        
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     }
