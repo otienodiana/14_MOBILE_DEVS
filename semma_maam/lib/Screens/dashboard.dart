@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  const DashboardScreen({super.key, required Null Function() userProfileOnTap, required Null Function() reportsOnTap, required Null Function() settingsOnTap});
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,20 @@ class SemaNasiPage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const DashboardScreen()),
+                MaterialPageRoute(
+  builder: (context) => DashboardScreen(
+    settingsOnTap: () {
+      // Function body for settingsOnTap
+    },
+    userProfileOnTap: () {
+      // Function body for userProfileOnTap
+    },
+    reportsOnTap: () {
+      // Function body for reportsOnTap
+    },
+  ),
+)
+
               );
             },
             child: const Text('Dashboard'),
@@ -58,4 +71,5 @@ class SemaNasiPage extends StatelessWidget {
       ),
     );
   }
+
 }

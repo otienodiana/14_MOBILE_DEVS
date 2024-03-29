@@ -86,7 +86,7 @@ class LoginScreen extends StatelessWidget {
         // User does not exist, navigate to signup screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => SignupScreen()),
+          MaterialPageRoute(builder: (context) => SignupScreen())
         );
       } else if (e.code == 'wrong-password') {
         // Incorrect password
