@@ -1,80 +1,56 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:semma_maam/Screens/login.dart';
 import 'package:semma_maam/Screens/signup.dart';
 
-
-
-// Mock BuildContext
-class MockBuildContext extends Mock implements BuildContext {}
-
-// Mock Navigator
-class MockNavigatorObserver extends Mock implements NavigatorObserver {
-  @override
-  // ignore: override_on_non_overriding_member
-  void didPushReplacement(Route<dynamic>? route, Route<dynamic>? previousRoute) {}
-}
-
-// Mock FirebaseAuth
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
-
-// Mock FirebaseFirestore
-class MockFirebaseFirestore extends Mock {
-  dynamic collection(String s) {}
-}
-
-// Mock UserCredential
 class MockUserCredential extends Mock implements UserCredential {}
+class MockFirebaseFirestore extends Mock implements FirebaseFirestore {}
+// ignore: must_be_immutable, subtype_of_sealed_class
+class MockDocumentReference extends Mock implements DocumentReference {}
 
 void main() {
-  setUpAll(() async {
-    // Initialize Firebase for testing
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-  });
-
-  group('SignupScreen - createUser method', () {
-    late MockBuildContext mockBuildContext;
+  group('SignupScreen', () {
     late MockFirebaseAuth mockFirebaseAuth;
+    late MockUserCredential mockUserCredential;
     late MockFirebaseFirestore mockFirebaseFirestore;
-    late MockNavigatorObserver mockNavigatorObserver;
+    late MockDocumentReference mockDocumentReference;
 
     setUp(() {
-      // Initialize mocks
-      mockBuildContext = MockBuildContext();
       mockFirebaseAuth = MockFirebaseAuth();
+      mockUserCredential = MockUserCredential();
       mockFirebaseFirestore = MockFirebaseFirestore();
-      mockNavigatorObserver = MockNavigatorObserver();
+      mockDocumentReference = MockDocumentReference();
     });
 
-    test('createUser - Successful signup', () async {
+    testWidgets('createUser - Successful signup', (WidgetTester tester) async {
       // Arrange
-      final signupScreen = SignupScreen();
-
-      // Mock FirebaseAuth createUserWithEmailAndPassword method
+      await Firebase.initializeApp();
       when(mockFirebaseAuth.createUserWithEmailAndPassword(
-        email: 'test@example.com',
-        password: 'password',
-      )).thenAnswer((_) => Future.value(MockUserCredential()));
+              email: 'test@example.com', password: 'password'))
+          .thenAnswer((_) async => mockUserCredential);
+      when(mockFirebaseFirestore.collection('users').doc())
+          .thenReturn(mockDocumentReference as DocumentReference<Map<String, dynamic>>);
+      when(mockDocumentReference.set(any)).thenAnswer((_) async => true);
 
-      // Mock FirebaseFirestore set method
-      when(mockFirebaseFirestore.collection('users').doc(any).set(any)).thenAnswer((_) => Future.value());
+      // Build the widget
+      await tester.pumpWidget(MaterialApp(home: SignupScreen()));
 
-      // Act
-      await signupScreen.createUser(
-        context: mockBuildContext,
-        username: 'testUser',
-        email: 'test@example.com',
-        password: 'password',
-      );
+      // Enter user details
+      await tester.enterText(find.byType(TextField).first, 'testUser');
+      await tester.enterText(find.byType(TextField).at(1), 'test@example.com');
+      await tester.enterText(find.byType(TextField).last, 'password');
 
-      // Assert
-      // Verify that navigation to LoginScreen occurred
-      verify(mockNavigatorObserver.didPushReplacement(any, any)).called(1);
+      // Tap the Sign Up button
+      await tester.tap(find.byType(TextButton));
+      await tester.pumpAndSettle();
+
+      // Verify that the user is navigated to the LoginScreen
+      expect(find.byType(LoginScreen), findsOneWidget);
     });
   });
 }
