@@ -159,7 +159,7 @@ class UsersScreen extends StatelessWidget {
                 _userService.deleteUser(user.id);
                 Navigator.pop(context);
               },
-              child: const Text('Delete'),
+              child: const Text('Delete'), 
             ),
           ],
         );
